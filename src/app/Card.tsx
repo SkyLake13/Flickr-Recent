@@ -44,17 +44,14 @@ export default function({ serverId, photoId, secret, size, title, owner }: CardP
 
     const overlay = () => {
         return (<div className="overlay">
-                    <div className="favourite-outer-container">
-                        <div className="favourite-container">
-                            <div className="title">{title}</div>
-                            {/* <div className="line-break"> </div> */}
-                            <hr className="line-break"/>
-                            <div className="owner">{owner}</div>
-                            <button className="favourite-btn"
-                                onClick={() => makeFavourite()}>
-                                    { favourite ? 'Unfavourite' : 'Favourite' }
-                                </button>
-                        </div>
+                    <div className="favourite-container">
+                        <div className="title">{title}</div>
+                        <hr className="line-break"/>
+                        <div className="owner">{owner}</div>
+                        <button className="favourite-btn"
+                            onClick={() => makeFavourite()}>
+                                { favourite ? 'Unfavourite' : 'Favourite' }
+                            </button>
                     </div>
                 </div>);
     };
@@ -67,7 +64,7 @@ export default function({ serverId, photoId, secret, size, title, owner }: CardP
                     <img src={url} alt="" />
                 </picture>
             </div>
-            { true && overlay() }
+            { hover && overlay() }
         </div>
     );
 }
