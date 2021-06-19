@@ -1,22 +1,38 @@
 import { useEffect, useState } from 'react';
 import Card from './Card';
 import { getPhotos } from './integration/http-client';
-import { RootObject } from './integration/interfaces';
+import { Photo, RootObject } from './integration/interfaces';
 
 import './Grid.scss';
 
 export function Grid() {
     const [size] = useState<string>('w');
+    const [page, setPage] = useState<number>(1);
 
-    const [ rootObject, setRootObject ] = useState<RootObject>();
+    const [ photos, setPhotos ] = useState<Photo[]>([]);
+
+    const scrollListener = (): void => {
+        let documentHeight = document.body.scrollHeight;
+        let currentScroll = window.scrollY + window.innerHeight;
+
+        if(currentScroll > documentHeight) {
+            document.removeEventListener('scroll', scrollListener);
+            console.log('You are at the bottom!')
+            setPage(page + 1);
+        }
+    }
+
+    document.addEventListener('scroll', scrollListener);
 
     useEffect(() => {
-        getPhotos(1, 20).then((res) => setRootObject(res));
-    }, []);
+        getPhotos(page, 20).then((res) => {
+            const _photos = [...photos, ...res.photos.photo];
+            setPhotos(_photos);
+        });
+    }, [page]);
 
     const cardList = () => {
-        return rootObject?.photos.photo
-        .map((photo) => <Card key={photo.id} serverId={photo.server} 
+        return photos.map((photo) => <Card key={photo.id} serverId={photo.server} 
                                 photoId={photo.id} 
                                 secret={photo.secret} 
                                 size={size} 
