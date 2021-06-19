@@ -1,0 +1,53 @@
+@mixin photo-text {
+    color: white;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-outer-container {
+    margin: 15px;
+    position: relative;
+
+    .card-inner-container {
+        border: 0px;
+
+        img {
+            height: 200px;
+            width: 250px;
+        }
+    }
+
+    .overlay {
+        background: black;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 23;
+        right: 0;
+        opacity: 0.5;
+
+        .favourite-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .title {
+                @include photo-text;
+            }
+            .line-break {
+                border-bottom: white;
+            }
+
+            .owner {
+                @include photo-text;
+            }
+
+            .favourite-btn {
+                border-radius: 12px;
+            }
+        }
+    }
+}

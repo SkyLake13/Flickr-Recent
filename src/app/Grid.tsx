@@ -3,6 +3,8 @@ import Card from './Card';
 import { getPhotos } from './integration/http-client';
 import { RootObject } from './integration/interfaces';
 
+import './Grid.scss';
+
 export function Grid() {
     const [size] = useState<string>('w');
 
@@ -17,7 +19,9 @@ export function Grid() {
         .map((photo) => <Card key={photo.id} serverId={photo.server} 
                                 photoId={photo.id} 
                                 secret={photo.secret} 
-                                size={size}/>);
+                                size={size} 
+                                title={photo.title}
+                                owner={photo.owner}/>);
     }
 
     return (
