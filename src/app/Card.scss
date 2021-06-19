@@ -1,9 +1,12 @@
+$color: white;
+
 @mixin photo-text {
-    color: white;
+    color: $color;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-family: sans-serif;
 }
 
 .card-outer-container {
@@ -11,11 +14,12 @@
     position: relative;
 
     .card-inner-container {
-        border: 0px;
 
         img {
             height: 200px;
             width: 250px;
+            border-radius: 5px;
+            box-shadow: 0 3px 6px 0px rgb(0 0 0 / 59%);
         }
     }
 
@@ -24,29 +28,39 @@
         position: absolute;
         top: 0;
         left: 0;
-        bottom: 0;
-        z-index: 23;
+        bottom: 4px;
         right: 0;
         opacity: 0.5;
+        border-radius: 5px;
 
         .favourite-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: absolute;
+            top: 45px;
+            left: 0;
+            right: 0;
+            text-align: center;
 
             .title {
                 @include photo-text;
+                font-weight: 900;
             }
             .line-break {
-                border-bottom: white;
+                width: 65px;
+                border: 0.5px solid white;
             }
 
             .owner {
                 @include photo-text;
+                font-style: italic;
             }
 
             .favourite-btn {
-                border-radius: 12px;
+                border-radius: 19px;
+                color: $color;
+                background: black;
+                line-height: 30px;
+                border: 1px solid $color;
+                margin-top: 10px;
             }
         }
     }

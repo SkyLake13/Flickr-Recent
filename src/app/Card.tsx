@@ -4,15 +4,16 @@ import './Card.scss';
 import { useEffect, useState } from 'react';
 import { isFavourite, setFavourite, removeFavourite } from './integration/favourite';
 
-export default function({ serverId, photoId, secret, size, title, owner }
-                                : {
-                                    serverId: string, 
-                                    photoId: string, 
-                                    secret: string, 
-                                    size: string,
-                                    title: string,
-                                    owner: string
-                                }) {
+interface CardProp {
+    serverId: string, 
+    photoId: string, 
+    secret: string, 
+    size: string,
+    title: string,
+    owner: string
+}
+
+export default function({ serverId, photoId, secret, size, title, owner }: CardProp) {
     const url = getPhotoUrl(serverId, photoId, secret, size);
 
     const [hover, setHover] = useState<boolean>(false);
@@ -46,7 +47,8 @@ export default function({ serverId, photoId, secret, size, title, owner }
                     <div className="favourite-outer-container">
                         <div className="favourite-container">
                             <div className="title">{title}</div>
-                            <div className="line-break"> </div>
+                            {/* <div className="line-break"> </div> */}
+                            <hr className="line-break"/>
                             <div className="owner">{owner}</div>
                             <button className="favourite-btn"
                                 onClick={() => makeFavourite()}>
@@ -65,7 +67,7 @@ export default function({ serverId, photoId, secret, size, title, owner }
                     <img src={url} alt="" />
                 </picture>
             </div>
-            { hover && overlay() }
+            { true && overlay() }
         </div>
     );
 }

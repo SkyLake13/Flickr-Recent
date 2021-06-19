@@ -1,38 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Card from './Card';
 import { getPhotos } from './integration/http-client';
-import { Photo, RootObject } from './integration/interfaces';
+import { Photo } from './integration/interfaces';
 
 import './Grid.scss';
 
 export function Grid() {
-    const [size] = useState<string>('w');
-    const [page, setPage] = useState<number>(1);
+    const size = 'w';
+    const perPageCount = 20;
 
+    const [page, setPage] = useState<number>(1);
     const [ photos, setPhotos ] = useState<Photo[]>([]);
 
-    const scrollListener = (): void => {
-        let documentHeight = document.body.scrollHeight;
-        let currentScroll = window.scrollY + window.innerHeight;
+    const scrollListener = useCallback((): void => {
+        const documentHeight = document.body.scrollHeight;
+        const currentScroll = window.scrollY + window.innerHeight;
 
-        if(currentScroll > documentHeight) {
+        if(currentScroll + 200 > documentHeight) {
             document.removeEventListener('scroll', scrollListener);
-            console.log('You are at the bottom!')
             setPage(page + 1);
         }
-    }
+    }, [page])
 
     document.addEventListener('scroll', scrollListener);
 
     useEffect(() => {
-        getPhotos(page, 20).then((res) => {
-            const _photos = [...photos, ...res.photos.photo];
-            setPhotos(_photos);
+        getPhotos(page, perPageCount).then((res) => {
+            setPhotos([...photos, ...res.photos.photo]);
         });
     }, [page]);
 
     const cardList = () => {
-        return photos.map((photo) => <Card key={photo.id} serverId={photo.server} 
+        return photos.map((photo) => <Card 
+                                key={ `${photo.server}_${photo.id}_${photo.title}` }
+                                serverId={photo.server} 
                                 photoId={photo.id} 
                                 secret={photo.secret} 
                                 size={size} 
