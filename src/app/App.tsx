@@ -1,11 +1,10 @@
 import './App.scss';
-import image from '../assets/react.png'
+import { Grid } from './Grid';
 
 export default function() {
     return (
         <div className="main">
-                This is react typescipt app.
-                <img src={image}></img>
+                <Grid/>
         </div>
     );
 }
