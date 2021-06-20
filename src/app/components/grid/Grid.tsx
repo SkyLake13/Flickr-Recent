@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Card } from '../card/Card';
-import { getPhotos } from '../../integration/http-client';
+import { getPhotos } from '../../integration/flickr-client';
 import { Photo } from '../../integration/interfaces';
 
 import './Grid.scss';

@@ -1,23 +1,18 @@
 import { useEffect, useState } from 'react';
-import { isFavourite, removeFavourite, addFavourite } from '../../integration/favourite';
+import { isFavourite, saveFavourite } from '../../integration/favourite';
 
 export function useFavourite(serverId: string, photoId: string): [ boolean, () => void ] {
     const [fav, setFav] = useState<boolean>(false);
 
     useEffect(() => {
-        const _ = isFavourite(serverId, photoId);
-        setFav(_);
+        const _fav = isFavourite(serverId, photoId);
+        setFav(_fav);
     }, [fav]);
 
-    const setFavourite = () => {
-        if (fav) {
-            removeFavourite(serverId, photoId);
-        } else {
-            addFavourite(serverId, photoId);
-        }
-        
+    const toggleFavourite = () => {
+        saveFavourite(serverId, photoId, !fav);
         setFav(!fav);
     };
 
-    return [fav, setFavourite];
+    return [fav, toggleFavourite];
 }

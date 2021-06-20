@@ -1,41 +1,32 @@
-const STORAGE_KEY = 'photos';
+import { getFavourites, saveFavourites } from './storage-client';
 
-interface Favourite {
-    serverId: string;
-    photoId: string;
-}
 
 const addFavourite = (serverId: string, photoId: string): void => {
-    const value = sessionStorage.getItem(STORAGE_KEY);
-    if (value) {
-        let favourites = JSON.parse(value) as Favourite[];
+    let favourites = getFavourites();
+    if (favourites) {
         favourites = [...favourites, { serverId, photoId }];
-
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(favourites));
+        saveFavourites(favourites);
     } else {
-        let favourites: Favourite[] = [{ serverId, photoId }];
+        let favourites = [{ serverId, photoId }];
 
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(favourites));
+        saveFavourites(favourites);
     }
 }
 
 const removeFavourite = (serverId: string, photoId: string): void => {
-    const value = sessionStorage.getItem(STORAGE_KEY);
-    if (value) {
-        let favourites = JSON.parse(value) as Favourite[];
+    let favourites = getFavourites();
+    if (favourites) {
         const index = favourites.findIndex((f) => f.serverId === serverId && f.photoId === photoId);
         if(index !== -1) {
             favourites.splice(index, 1);
-
-            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(favourites));
+            saveFavourites(favourites);
         }
     }
 }
 
 const isFavourite = (serverId: string, photoId: string): boolean => {
-    const value = sessionStorage.getItem(STORAGE_KEY);
-    if (value) {
-        let favourites = JSON.parse(value) as Favourite[];
+    let favourites = getFavourites();
+    if (favourites) {
         if (favourites && favourites.length > 0) {
             return favourites.some((f) => f.serverId === serverId && f.photoId === photoId);
         }
@@ -46,4 +37,8 @@ const isFavourite = (serverId: string, photoId: string): boolean => {
     return false;
 }
 
-export { addFavourite, removeFavourite, isFavourite };
+const saveFavourite = (serverId: string, photoId: string, fav: boolean): void => {
+    fav ? addFavourite(serverId, photoId) : removeFavourite(serverId, photoId);
+}
+
+export { isFavourite, saveFavourite };

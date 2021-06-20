@@ -1,4 +1,4 @@
-import { getPhotoUrl } from '../../integration/http-client';
+import { getPhotoUrl } from '../../integration/flickr-client';
 import { useState } from 'react';
 
 import './Card.scss';
@@ -17,7 +17,7 @@ export function Card({ serverId, photoId, secret, size, title, owner }: CardProp
     const url = getPhotoUrl(serverId, photoId, secret, size);
 
     const [hover, setHover] = useState<boolean>(false);
-    const [favourite, setFavourite] = useFavourite(serverId, photoId);
+    const [favourite, toggleFavourite] = useFavourite(serverId, photoId);
 
     const mouseEnter = () => {
         setHover(true);
@@ -28,7 +28,7 @@ export function Card({ serverId, photoId, secret, size, title, owner }: CardProp
     };
 
     const makeFavourite = () => {
-        setFavourite();
+        toggleFavourite();
     };
 
     const overlay = () => {
