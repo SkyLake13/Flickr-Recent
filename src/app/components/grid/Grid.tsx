@@ -16,7 +16,7 @@ const scrollListener = (atBottom: () => void): void => {
     }
 }
 
-function Grid({ perPageCount = 20 }: { perPageCount?: number }) {
+function Grid({ perPageCount }: { perPageCount: number }) {
     const size = 'm';
 
     const [page, setPage] = useState<number>(1);
@@ -42,8 +42,8 @@ function Grid({ perPageCount = 20 }: { perPageCount?: number }) {
     document.addEventListener(SCROLL_EVENT, scrollListenerCallback);
 
     const cardList = () => {
-        return photos.map((photo) => <Card 
-                                key={ `${photo.server}_${photo.id}_${photo.title}` }
+        return photos.map((photo, i) => <Card 
+                                key={ `${photo.server}_${photo.id}_${i}` }
                                 serverId={photo.server} 
                                 photoId={photo.id} 
                                 secret={photo.secret} 
