@@ -1,8 +1,8 @@
-import { getPhotoUrl } from './integration/http-client';
+import { getPhotoUrl } from '../../integration/http-client';
+import { useEffect, useState } from 'react';
+import { isFavourite, setFavourite, removeFavourite } from '../../integration/favourite';
 
 import './Card.scss';
-import { useEffect, useState } from 'react';
-import { isFavourite, setFavourite, removeFavourite } from './integration/favourite';
 
 interface CardProp {
     serverId: string, 
@@ -13,7 +13,7 @@ interface CardProp {
     owner: string
 }
 
-export default function({ serverId, photoId, secret, size, title, owner }: CardProp) {
+export function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
     const url = getPhotoUrl(serverId, photoId, secret, size);
 
     const [hover, setHover] = useState<boolean>(false);

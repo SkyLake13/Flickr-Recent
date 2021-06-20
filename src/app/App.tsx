@@ -1,7 +1,8 @@
-import './App.scss';
-import { Grid } from './Grid';
+import { Grid } from './components';
 
-export default function() {
+import './App.scss';
+
+export function App() {
     return (
         <div className="main">
                 <Grid/>

@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import Card from './Card';
-import { getPhotos } from './integration/http-client';
-import { Photo } from './integration/interfaces';
+import { Card } from '../card/Card';
+import { getPhotos } from '../../integration/http-client';
+import { Photo } from '../../integration/interfaces';
 
 import './Grid.scss';
 
 export function Grid() {
-    const size = 'w';
+    const size = 'm';
     const perPageCount = 20;
 
     const [page, setPage] = useState<number>(1);

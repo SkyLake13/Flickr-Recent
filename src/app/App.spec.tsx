@@ -1,7 +1,7 @@
 import { act } from "react-dom/test-utils";
 import { render, RenderResult, cleanup } from '@testing-library/react';
 
-import App from './App';
+import { App } from './App';
 
 describe('App component ', () => {
   let fixture: RenderResult;
