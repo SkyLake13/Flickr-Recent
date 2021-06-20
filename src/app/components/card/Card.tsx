@@ -1,8 +1,8 @@
 import { getPhotoUrl } from '../../integration/http-client';
-import { useEffect, useState } from 'react';
-import { isFavourite, setFavourite, removeFavourite } from '../../integration/favourite';
+import { useState } from 'react';
 
 import './Card.scss';
+import { useFavourite } from './useFavourite';
 
 interface CardProp {
     serverId: string, 
@@ -17,12 +17,7 @@ export function Card({ serverId, photoId, secret, size, title, owner }: CardProp
     const url = getPhotoUrl(serverId, photoId, secret, size);
 
     const [hover, setHover] = useState<boolean>(false);
-    const [favourite, setfavourite] = useState<boolean>(false);
-
-    useEffect(() => {
-        const _ = isFavourite(serverId, photoId);
-        setfavourite(_);
-    }, [favourite]);
+    const [favourite, setFavourite] = useFavourite(serverId, photoId);
 
     const mouseEnter = () => {
         setHover(true);
@@ -33,13 +28,7 @@ export function Card({ serverId, photoId, secret, size, title, owner }: CardProp
     };
 
     const makeFavourite = () => {
-        if (favourite) {
-            removeFavourite(serverId, photoId);
-        } else {
-            setFavourite(serverId, photoId);
-        }
-        
-        setfavourite(!favourite);
+        setFavourite();
     };
 
     const overlay = () => {

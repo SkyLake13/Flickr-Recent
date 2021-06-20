@@ -5,7 +5,7 @@ interface Favourite {
     photoId: string;
 }
 
-const setFavourite = (serverId: string, photoId: string): void => {
+const addFavourite = (serverId: string, photoId: string): void => {
     const value = sessionStorage.getItem(STORAGE_KEY);
     if (value) {
         let favourites = JSON.parse(value) as Favourite[];
@@ -46,4 +46,4 @@ const isFavourite = (serverId: string, photoId: string): boolean => {
     return false;
 }
 
-export { setFavourite, removeFavourite, isFavourite };
+export { addFavourite, removeFavourite, isFavourite };
