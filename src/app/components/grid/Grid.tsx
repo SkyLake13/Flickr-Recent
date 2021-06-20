@@ -5,30 +5,41 @@ import { Photo } from '../../integration/interfaces';
 
 import './Grid.scss';
 
-export function Grid() {
+const SCROLL_EVENT = 'scroll';
+
+const scrollListener = (atBottom: () => void): void => {
+    const documentHeight = document.body.scrollHeight;
+    const currentScroll = window.scrollY + window.innerHeight;
+
+    if(currentScroll + 200 > documentHeight) {
+        atBottom();
+    }
+}
+
+function Grid({ perPageCount = 20 }: { perPageCount?: number }) {
     const size = 'm';
-    const perPageCount = 20;
 
     const [page, setPage] = useState<number>(1);
     const [ photos, setPhotos ] = useState<Photo[]>([]);
-
-    const scrollListener = useCallback((): void => {
-        const documentHeight = document.body.scrollHeight;
-        const currentScroll = window.scrollY + window.innerHeight;
-
-        if(currentScroll + 200 > documentHeight) {
-            document.removeEventListener('scroll', scrollListener);
-            setPage(page + 1);
-        }
-    }, [page])
-
-    document.addEventListener('scroll', scrollListener);
 
     useEffect(() => {
         getPhotos(page, perPageCount).then((res) => {
             setPhotos([...photos, ...res.photos.photo]);
         });
+        // Remove Scroll event listener at component unmount
+        return document.removeEventListener(SCROLL_EVENT, scrollListenerCallback);
     }, [page]);
+
+    // Callback when scroll position is at bottom
+    const atBottom = () => {
+        // Remove Scroll event listener at bottom
+        document.removeEventListener(SCROLL_EVENT, scrollListenerCallback);
+        setPage(page + 1);
+    }
+
+    const scrollListenerCallback = useCallback(() => scrollListener(() => atBottom()), [page])
+
+    document.addEventListener(SCROLL_EVENT, scrollListenerCallback);
 
     const cardList = () => {
         return photos.map((photo) => <Card 
@@ -47,3 +58,5 @@ export function Grid() {
         </div>
     );
 }
+
+export { Grid };

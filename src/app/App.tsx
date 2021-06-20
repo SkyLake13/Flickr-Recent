@@ -1,11 +1,11 @@
 import { Grid } from './components';
 
-import './App.scss';
-
-export function App() {
+function App() {
     return (
-        <div className="main">
-                <Grid/>
-        </div>
+        <main>
+            <Grid perPageCount={20} />
+        </main>
     );
 }
+
+export { App }

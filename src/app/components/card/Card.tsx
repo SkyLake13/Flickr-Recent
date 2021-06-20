@@ -13,7 +13,7 @@ interface CardProp {
     owner: string
 }
 
-export function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
+function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
     const url = getPhotoUrl(serverId, photoId, secret, size);
 
     const [hover, setHover] = useState<boolean>(false);
@@ -57,3 +57,5 @@ export function Card({ serverId, photoId, secret, size, title, owner }: CardProp
         </div>
     );
 }
+
+export { Card };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { isFavourite, saveFavourite } from '../../integration/favourite';
 
-export function useFavourite(serverId: string, photoId: string): [ boolean, () => void ] {
+function useFavourite(serverId: string, photoId: string): [ boolean, () => void ] {
     const [fav, setFav] = useState<boolean>(false);
 
     useEffect(() => {
@@ -16,3 +16,5 @@ export function useFavourite(serverId: string, photoId: string): [ boolean, () =
 
     return [fav, toggleFavourite];
 }
+
+export { useFavourite };
