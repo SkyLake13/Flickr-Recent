@@ -7,11 +7,20 @@ import './Grid.scss';
 
 const SCROLL_EVENT = 'scroll';
 
+let timeout: NodeJS.Timeout;
+
+const debounce = (method: () => void): void => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => method(), 100);
+}
+
 const scrollListener = (atBottom: () => void): void => {
     const documentHeight = document.body.scrollHeight;
     const currentScroll = window.scrollY + window.innerHeight;
 
-    if(currentScroll + 200 > documentHeight) {
+    console.log(`documentHeight ${documentHeight} currentScroll ${currentScroll}`);
+
+    if(currentScroll + 300 > documentHeight) {
         atBottom();
     }
 }
@@ -37,7 +46,7 @@ function Grid({ perPageCount }: { perPageCount: number }) {
         setPage(page + 1);
     }
 
-    const scrollListenerCallback = useCallback(() => scrollListener(() => atBottom()), [page])
+    const scrollListenerCallback = useCallback(() => debounce(() => scrollListener(() => atBottom())), [page])
 
     document.addEventListener(SCROLL_EVENT, scrollListenerCallback);
 
