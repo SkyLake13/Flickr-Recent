@@ -24,6 +24,8 @@ $color: white;
     }
 
     .overlay {
+        display: none;
+        
         background: black;
         position: absolute;
         top: 0;
@@ -65,4 +67,8 @@ $color: white;
             }
         }
     }
+}
+
+.card-outer-container:hover .overlay {
+    display: block;
 }
