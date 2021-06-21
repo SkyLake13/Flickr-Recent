@@ -21,15 +21,15 @@ function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
     };
 
     const overlay = 
-         (<div className="overlay">
-            <div className="favourite-container">
+         (<div className="card-overlay">
+            <div className="card-info-container">
                 <div className="title">{title}</div>
                 <hr className="line-break"/>
                 <div className="owner">{owner}</div>
                 <button className="favourite-btn"
                     onClick={() => makeFavourite()}>
-                        { favourite ? 'Unfavourite' : 'Favourite' }
-                    </button>
+                    { favourite ? 'Unfavourite' : 'Favourite' }
+                </button>
             </div>
         </div>);
 
