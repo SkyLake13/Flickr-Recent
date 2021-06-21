@@ -1,29 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { Card } from '../card/Card';
 import { getPhotos } from '../../integration/flickr-client';
 import { Photo } from '../../integration/interfaces';
+import { debouncedListener } from './scroll-event-listener';
 
 import './Grid.scss';
 
+
 const SCROLL_EVENT = 'scroll';
-
-let timeout: NodeJS.Timeout;
-
-const debounce = (method: () => void): void => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => method(), 100);
-}
-
-const scrollListener = (atBottom: () => void): void => {
-    const documentHeight = document.body.scrollHeight;
-    const currentScroll = window.scrollY + window.innerHeight;
-
-    console.log(`documentHeight ${documentHeight} currentScroll ${currentScroll}`);
-
-    if(currentScroll + 300 > documentHeight) {
-        atBottom();
-    }
-}
 
 function Grid({ perPageCount }: { perPageCount: number }) {
     const size = 'm';
@@ -46,7 +31,7 @@ function Grid({ perPageCount }: { perPageCount: number }) {
         setPage(page + 1);
     }
 
-    const scrollListenerCallback = useCallback(() => debounce(() => scrollListener(() => atBottom())), [page])
+    const scrollListenerCallback = useCallback(() => debouncedListener(() => atBottom()), [page])
 
     document.addEventListener(SCROLL_EVENT, scrollListenerCallback);
 
