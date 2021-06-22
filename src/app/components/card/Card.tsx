@@ -1,5 +1,5 @@
-import { getPhotoUrl } from '../../integration/flickr-client';
 import { useFavourite } from './useFavourite';
+import { default as Picture } from '../picture/Picture';
 
 import './Card.scss';
 export interface CardProp {
@@ -12,8 +12,6 @@ export interface CardProp {
 }
 
 function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
-    const url = getPhotoUrl(serverId, photoId, secret, size);
-
     const [favourite, toggleFavourite] = useFavourite(serverId, photoId);
 
     const makeFavourite = () => {
@@ -36,9 +34,10 @@ function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
     return (
         <div className="card-outer-container">
             <div className="card-inner-container">
-                <picture>
-                    <img src={url} alt={title} />
-                </picture>
+                <Picture serverId={serverId} 
+                    photoId={photoId} 
+                    secret={secret}  
+                    title={title} />
             </div>
             { overlay }
         </div>
