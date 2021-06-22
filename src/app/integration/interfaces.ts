@@ -3,22 +3,22 @@ export interface Photo {
     owner: string;
     secret: string;
     server: string;
-    farm: number;
+    farm?: number;
     title: string;
-    ispublic: number;
-    isfriend: number;
-    isfamily: number;
+    ispublic?: number;
+    isfriend?: number;
+    isfamily?: number;
 }
 
 export interface Photos {
-    page: number;
-    pages: number;
-    perpage: number;
-    total: number;
+    page?: number;
+    pages?: number;
+    perpage?: number;
+    total?: number;
     photo: Photo[];
 }
 
 export interface RootObject {
     photos: Photos;
-    stat: string;
+    stat?: string;
 }
