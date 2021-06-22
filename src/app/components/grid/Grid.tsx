@@ -13,12 +13,14 @@ const SCROLL_EVENT = 'scroll';
 function Grid({ perPageCount }: { perPageCount: number }) {
     const size = 'm';
 
+    const [ loading, setLoading ] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [ photos, setPhotos ] = useState<Photo[]>([]);
 
     useEffect(() => {
         getPhotos(page, perPageCount).then((res) => {
             setPhotos([...photos, ...res.photos.photo]);
+            setLoading(false);
         });
         // Remove Scroll event listener at component unmount
         return document.removeEventListener(SCROLL_EVENT, scrollListenerCallback);
@@ -27,6 +29,7 @@ function Grid({ perPageCount }: { perPageCount: number }) {
     // Callback when scroll position is at bottom
     const atBottom = () => {
         // Remove Scroll event listener at bottom
+        setLoading(true);
         document.removeEventListener(SCROLL_EVENT, scrollListenerCallback);
         setPage(page + 1);
     }
@@ -35,21 +38,22 @@ function Grid({ perPageCount }: { perPageCount: number }) {
 
     document.addEventListener(SCROLL_EVENT, scrollListenerCallback);
 
-    const cardList = () => {
-        return photos.map((photo, i) => <Card 
-                                key={ `${photo.server}_${photo.id}_${i}` }
-                                serverId={photo.server} 
-                                photoId={photo.id} 
-                                secret={photo.secret} 
-                                size={size} 
-                                title={photo.title}
-                                owner={photo.owner}/>);
-    }
+    const cardList = photos.map((photo, i) => <Card key={ `${photo.server}_${photo.id}_${i}` }
+                                                    serverId={photo.server} 
+                                                    photoId={photo.id} 
+                                                    secret={photo.secret} 
+                                                    size={size} 
+                                                    title={photo.title}
+                                                    owner={photo.owner} 
+                                                />);
 
     return (
-        <div className="grid-container">
-            {cardList()}
-        </div>
+        <>
+            <div className="grid-container">
+                {cardList}
+            </div>
+            { loading && <div className="loading">Loading...</div> }
+        </>
     );
 }
 

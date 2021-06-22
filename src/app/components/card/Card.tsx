@@ -20,8 +20,8 @@ function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
         toggleFavourite();
     };
 
-    const overlay = 
-         (<div className="card-overlay">
+    const overlay = (
+        <div className="card-overlay">
             <div className="card-info-container">
                 <div className="title">{title}</div>
                 <hr className="line-break"/>
