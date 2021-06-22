@@ -2,12 +2,14 @@ import { memo } from 'react';
 
 import { getPhotoUrl } from '../../integration/flickr-client';
 
+import './Picture.scss';
+
 function Picture({ serverId, photoId, secret, title }: { serverId: string, photoId: string, secret: string, title: string }): JSX.Element {
 
     const mediaSize = [
         { media: '(min-width: 320px) and (max-width: 480px)', size: 'q' },
-        { media: '(min-width: 768px) and (max-width: 1024px)', size: 'n' },
-        { media: '(min-width: 1281px)', size: 'z' }
+        { media: '(min-width: 481px) and (max-width: 1024px)', size: 'n' },
+        { media: '(min-width: 1025px)', size: 'z' }
     ];
 
     const mediaUrls = mediaSize.map((el) => {
@@ -22,7 +24,7 @@ function Picture({ serverId, photoId, secret, title }: { serverId: string, photo
     const defaultSrc = getPhotoUrl(serverId, photoId, secret, 'z');
 
     return (
-        <picture>
+        <picture className="card-picture">
             { sources }
             <img src={defaultSrc} alt={title} loading="lazy" />
         </picture>
