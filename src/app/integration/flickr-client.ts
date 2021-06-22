@@ -21,18 +21,8 @@ const getPhotoUrl = (serverId: string, photoId: string, secret: string, size: st
 const getPhotos = (page: number, count: number): Promise<RootObject> => {
     const photosUrl = getPhotosUrl(FLICKR_KEY, count, page);
 
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-
-    const request = new Request(photosUrl, {
-        method: 'GET',
-        headers: headers,
-        mode: 'cors'
-    });
-
     return fetch(photosUrl)
-        .then((response) => {
-            return response.json() as Promise<RootObject>;
-        });
+        .then((response) => response.json() as Promise<RootObject>);
 }
 
 export { getPhotos, getPhotoUrl };

@@ -1,7 +1,19 @@
-import { act } from "react-dom/test-utils";
 import { render, RenderResult, cleanup } from '@testing-library/react';
 
 import { App } from './App';
+
+jest.mock('./components', () => {
+  return {
+    __esModule: true,
+    Grid: ({ perPageCount }: { perPageCount: number }) => {
+      return (
+        <>
+          {perPageCount}
+        </>
+      );
+    }
+  }
+});
 
 describe('App component ', () => {
   let fixture: RenderResult;
@@ -11,12 +23,11 @@ describe('App component ', () => {
   });
 
   it("Main renders correctly", () => {
-    act(() => {
-      fixture = render(<App />)
-    });
+    fixture = render(<App />);
 
-    const xyz = fixture.container.querySelector('.main');
-    
-    expect(xyz?.textContent).toBe('This is react typescipt app.');
+    const main = fixture.container.querySelector('main');
+
+    expect(main).toBeDefined();
+    expect(Number(main?.textContent)).toEqual(20);
   });
 });

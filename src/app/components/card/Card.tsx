@@ -2,7 +2,7 @@ import { getPhotoUrl } from '../../integration/flickr-client';
 import { useFavourite } from './useFavourite';
 
 import './Card.scss';
-interface CardProp {
+export interface CardProp {
     serverId: string, 
     photoId: string, 
     secret: string, 
