@@ -18,11 +18,9 @@ jest.mock('./components', () => {
 describe('App component ', () => {
   let fixture: RenderResult;
 
-  afterEach(() => {
-    cleanup();
-  });
+  afterEach(() => cleanup());
 
-  it("Main renders correctly", () => {
+  it("should render child component", () => {
     fixture = render(<App />);
 
     const main = fixture.container.querySelector('main');

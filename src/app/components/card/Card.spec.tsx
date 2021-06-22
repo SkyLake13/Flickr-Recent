@@ -26,7 +26,7 @@ describe('Card', () => {
         cleanup();
     });
 
-    it('should build src url for image', () => {
+    it('should render properly', () => {
         const props: CardProp = {
             serverId: 'serverId', 
             photoId: 'photoId', 
@@ -46,33 +46,23 @@ describe('Card', () => {
             title={props.title}
             owner={props.owner} />);
 
-        const image = fixture.container.querySelector('img');
 
-        expect(image).toBeDefined();
-        expect(image?.src).toEqual(expected_imageSrcUrl);
-    });
+        const title = fixture.container.querySelector('.title');
+        expect(title).toBeDefined();
+        expect(title?.textContent).toEqual(props.title);
 
-    it('should render the favourite button', () => {
-        const props: CardProp = {
-            serverId: 'serverId', 
-            photoId: 'photoId', 
-            secret: 'secret', 
-            size: 'size',
-            title: 'title',
-            owner: 'owner'
-        }
-
-        fixture = render(<Card serverId={props.serverId} 
-            photoId={props.photoId} 
-            secret={props.secret} 
-            size={props.size} 
-            title={props.title}
-            owner={props.owner} />);
+        const owner = fixture.container.querySelector('.owner');
+        expect(owner).toBeDefined();
+        expect(owner?.textContent).toEqual(props.owner);
 
         const fav_button = fixture.container.querySelector('.favourite-btn');
-
         expect(fav_button).toBeDefined();
         expect(fav_button?.textContent).toEqual('Favourite');
+
+        const image = fixture.container.querySelector('img');
+        expect(image).toBeDefined();
+        expect(image?.src).toEqual(expected_imageSrcUrl);
+        expect(image?.alt).toEqual(props.title);        
     });
 
     it('should make a card favourite', () => {
@@ -91,13 +81,50 @@ describe('Card', () => {
             size={props.size} 
             title={props.title}
             owner={props.owner} />);
-
-        const fav_button = screen.getByText('Favourite');
+          
+        
+        const fav_button: HTMLButtonElement | null = fixture.container.querySelector('.favourite-btn');
         expect(fav_button).toBeDefined();
+        expect(fav_button?.textContent).toEqual('Favourite');
 
-        fireEvent.click(fav_button);
+        fav_button?.click()
 
-        const unfav_button = screen.getByText('Unfavourite');
+        const unfav_button: HTMLButtonElement | null = fixture.container.querySelector('.favourite-btn');
         expect(unfav_button).toBeDefined();
+        expect(unfav_button?.textContent).toEqual('Unfavourite');
+    });
+
+    it('should make a card unfavourite', () => {
+        const props: CardProp = {
+            serverId: 'serverId', 
+            photoId: 'photoId', 
+            secret: 'secret', 
+            size: 'size',
+            title: 'title',
+            owner: 'owner'
+        }
+
+        fixture = render(<Card serverId={props.serverId} 
+            photoId={props.photoId} 
+            secret={props.secret} 
+            size={props.size} 
+            title={props.title}
+            owner={props.owner} />);
+
+        const fav_button: HTMLButtonElement | null = fixture.container.querySelector('.favourite-btn');
+        expect(fav_button).toBeDefined();
+        expect(fav_button?.textContent).toEqual('Favourite');
+
+        fav_button?.click()
+
+        const unfav_button: HTMLButtonElement | null = fixture.container.querySelector('.favourite-btn');
+        expect(unfav_button).toBeDefined();
+        expect(unfav_button?.textContent).toEqual('Unfavourite');
+
+        unfav_button?.click()
+
+        const updated_fav_button: HTMLButtonElement | null = fixture.container.querySelector('.favourite-btn');
+        expect(updated_fav_button).toBeDefined();
+        expect(updated_fav_button?.textContent).toEqual('Favourite');
     });
 });
