@@ -11,11 +11,9 @@ import styles from './Grid.module.scss';
 const SCROLL_EVENT = 'scroll';
 
 function Grid({ perPageCount }: { perPageCount: number }) {
-    const size = 'm';
-
-    const [ loading, setLoading ] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
-    const [ photos, setPhotos ] = useState<Photo[]>([]);
+    const [photos, setPhotos] = useState<Photo[]>([]);
 
     useEffect(() => {
         getPhotos(page, perPageCount).then((res) => {
