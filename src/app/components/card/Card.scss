@@ -1,4 +1,4 @@
-$color: white;
+@import '../../../assets/variables';
 
 @mixin photo-text {
     display: -webkit-box;
@@ -15,7 +15,7 @@ $color: white;
     .card-overlay {      
         opacity: 0;
 
-        background: black;
+        background: $favourite-overlay-background-color;
         position: absolute;
         top: 0;
         left: 0;
@@ -31,7 +31,7 @@ $color: white;
             left: 0;
             right: 0;
             text-align: center;
-            color: $color;
+            color: $favourite-overlay-color;
 
             .title {
                 @include photo-text;
@@ -39,7 +39,7 @@ $color: white;
             }
             .line-break {
                 width: 65px;
-                border: 0.5px solid $color;
+                border: 0.5px solid $favourite-overlay-color;
             }
 
             .owner {
@@ -49,12 +49,12 @@ $color: white;
 
             .favourite-btn {
                 border-radius: 19px;
-                background: black;
+                background: $favourite-overlay-background-color;
                 line-height: 30px;
-                border: 1px solid $color;
+                border: 1px solid $favourite-overlay-color;
                 margin-top: 10px;
                 cursor: pointer;
-                color: $color;
+                color: $favourite-overlay-color;
             }
         }
     }

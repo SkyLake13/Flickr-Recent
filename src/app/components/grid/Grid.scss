@@ -1,8 +1,10 @@
+@import '../../../assets/variables';
+
 .grid-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    background-color: #dfe1e3;
+    background-color: $grid-background-color;
 }
 
 .loading {
