@@ -7,10 +7,10 @@ import { Grid } from './Grid';
 jest.mock('../card/Card', () => {
     return {
         __esModule: true,
-        Card: ({ serverId, photoId, secret, size, title, owner }: CardProp) => {
+        Card: ({ serverId, photoId, secret, title, owner }: CardProp) => {
             return (
                 <div className="card">
-                    { `${serverId}_${photoId}_${secret}_${size}` }
+                    { `${serverId}_${photoId}_${secret}` }
                 </div>
             );
         }

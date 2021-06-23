@@ -1,4 +1,4 @@
-import { render, RenderResult, cleanup, fireEvent, screen  } from '@testing-library/react';
+import { render, RenderResult, cleanup  } from '@testing-library/react';
 import { useState } from 'react';
 import { getPhotoUrl } from '../../integration/flickr-client';
 
@@ -31,18 +31,16 @@ describe('Card', () => {
             serverId: 'serverId', 
             photoId: 'photoId', 
             secret: 'secret', 
-            size: 'size',
             title: 'title',
             owner: 'owner'
         }
 
         const expected_imageSrcUrl = getPhotoUrl(props.serverId, 
-            props.photoId, props.secret, props.size);
+            props.photoId, props.secret, 'z');
 
         fixture = render(<Card serverId={props.serverId} 
             photoId={props.photoId} 
-            secret={props.secret} 
-            size={props.size} 
+            secret={props.secret}
             title={props.title}
             owner={props.owner} />);
 
@@ -70,7 +68,6 @@ describe('Card', () => {
             serverId: 'serverId', 
             photoId: 'photoId', 
             secret: 'secret', 
-            size: 'size',
             title: 'title',
             owner: 'owner'
         }
@@ -78,7 +75,6 @@ describe('Card', () => {
         fixture = render(<Card serverId={props.serverId} 
             photoId={props.photoId} 
             secret={props.secret} 
-            size={props.size} 
             title={props.title}
             owner={props.owner} />);
           
@@ -98,8 +94,7 @@ describe('Card', () => {
         const props: CardProp = {
             serverId: 'serverId', 
             photoId: 'photoId', 
-            secret: 'secret', 
-            size: 'size',
+            secret: 'secret',
             title: 'title',
             owner: 'owner'
         }
@@ -107,7 +102,6 @@ describe('Card', () => {
         fixture = render(<Card serverId={props.serverId} 
             photoId={props.photoId} 
             secret={props.secret} 
-            size={props.size} 
             title={props.title}
             owner={props.owner} />);
 

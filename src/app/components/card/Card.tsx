@@ -6,12 +6,11 @@ export interface CardProp {
     serverId: string, 
     photoId: string, 
     secret: string, 
-    size: string,
     title: string,
     owner: string
 }
 
-function Card({ serverId, photoId, secret, size, title, owner }: CardProp) {
+function Card({ serverId, photoId, secret, title, owner }: CardProp) {
     const [favourite, toggleFavourite] = useFavourite(serverId, photoId);
 
     const makeFavourite = () => {

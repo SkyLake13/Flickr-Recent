@@ -38,23 +38,31 @@ function Grid({ perPageCount }: { perPageCount: number }) {
 
     document.addEventListener(SCROLL_EVENT, scrollListenerCallback);
 
-    const cardList = photos.map((photo, i) => <Card key={ `${photo.server}_${photo.id}_${i}` }
-                                                    serverId={photo.server} 
-                                                    photoId={photo.id} 
-                                                    secret={photo.secret} 
-                                                    size={size} 
-                                                    title={photo.title}
-                                                    owner={photo.owner} 
-                                                />);
-
     return (
         <>
             <div className="grid-container">
-                {cardList}
+                <CardList photos={photos} />
             </div>
             { loading && <div className="loading">Loading...</div> }
         </>
     );
+}
+
+function CardList({photos}: {photos: Photo[]}): JSX.Element {
+    return (
+        <>
+            {
+                photos.map((photo, i) => <Card key={ `${photo.server}_${photo.id}_${i}` }
+                                                serverId={photo.server} 
+                                                photoId={photo.id} 
+                                                secret={photo.secret} 
+                                                title={photo.title}
+                                                owner={photo.owner} 
+                                        />)
+            }
+        </>
+        
+    )
 }
 
 export { Grid };
