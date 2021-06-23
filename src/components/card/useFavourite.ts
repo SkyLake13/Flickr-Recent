@@ -7,7 +7,7 @@ function useFavourite(serverId: string, photoId: string): [ boolean, () => void 
     useEffect(() => {
         const _fav = isFavourite(serverId, photoId);
         setFav(_fav);
-    }, [fav]);
+    }, [fav, serverId, photoId]);
 
     const toggleFavourite = () => {
         saveFavourite(serverId, photoId, !fav);

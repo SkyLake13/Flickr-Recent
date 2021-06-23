@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { getPhotoUrl } from '../../integration/flickr-client';
 
-import './Picture.scss';
+import styles from './Picture.module.scss';
 
 function Picture({ serverId, photoId, secret, title }: { serverId: string, photoId: string, secret: string, title: string }): JSX.Element {
 
@@ -24,7 +24,7 @@ function Picture({ serverId, photoId, secret, title }: { serverId: string, photo
     const defaultSrc = getPhotoUrl(serverId, photoId, secret, 'z');
 
     return (
-        <picture className="card-picture">
+        <picture className={styles.card_picture}>
             { sources }
             <img src={defaultSrc} alt={title} loading="lazy" />
         </picture>

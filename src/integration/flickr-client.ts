@@ -1,7 +1,6 @@
 import { RootObject } from './interfaces';
 
 const FLICKR_KEY = '8808028abf5ea034d0492b2c5d5d9151';
-const FLICKR_SECRET = 'a4ae766b4b9fcc8f';
 
 const getPhotosUrl = (api_key: string, countPerPage: number, page: number): string => {
     const url = `https://www.flickr.com/services/rest/?method=flickr.photos.getRecent`

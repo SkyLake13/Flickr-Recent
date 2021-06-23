@@ -1,5 +1,5 @@
 @media (min-width: 320px) and (max-width: 480px) {
-    .card-picture {
+    .card_picture {
         img {
             height: 200px;
             width: 250px;
@@ -10,7 +10,7 @@
 }
 
 @media (min-width: 481px) and (max-width: 1024px) {
-    .card-picture {
+    .card_picture {
         img {
             height: 230px;
             width: 300px;
@@ -21,7 +21,7 @@
 }
 
 @media (min-width: 1025px) {
-    .card-picture {
+    .card_picture {
         img {
             height: 280px;
             width: 400px;

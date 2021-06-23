@@ -5,7 +5,7 @@ import { getPhotos } from '../../integration/flickr-client';
 import { Photo } from '../../integration/interfaces';
 import { debouncedListener } from './scroll-event-listener';
 
-import './Grid.scss';
+import styles from './Grid.module.scss';
 
 
 const SCROLL_EVENT = 'scroll';
@@ -40,10 +40,10 @@ function Grid({ perPageCount }: { perPageCount: number }) {
 
     return (
         <>
-            <div className="grid-container">
+            <div className={styles.grid}>
                 <CardList photos={photos} />
             </div>
-            { loading && <div className="loading">Loading...</div> }
+            { loading && <div className={styles.loading}>Loading...</div> }
         </>
     );
 }
