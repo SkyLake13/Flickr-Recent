@@ -39,23 +39,20 @@ jest.mock('../../integration/flickr-client', () => {
     }
 });
 
-jest.mock('./scroll-event-listener', () => {
+jest.mock('./useIntersectionObserver', () => {
     return {
         __esModule: true,
-
-        debouncedListener: (atBottom: () => void) => {
-            atBottom();
-        }
+        useIntersectionObserver: () => true
     }
 });
 
-xdescribe('Grid', () => {
+describe('Grid', () => {
     afterEach(() => cleanup());
 
     it('should render', () => {
-        act(() => {
+        
             render(<Grid perPageCount={1} />);
-        });
+        
         
 
         screen.debug();        
