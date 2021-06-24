@@ -1,9 +1,11 @@
 
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import { default as Picture } from './Picture';
 import { getPhotoUrl } from '../../integration/flickr-client';
 
 describe('Picture', () => {
+    afterEach(() => cleanup());
+    
     it('should render', () => {
         const props = {
             serverId: 'serverId', 

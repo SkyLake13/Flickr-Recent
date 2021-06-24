@@ -51,10 +51,9 @@ describe('Grid', () => {
 
     it('should render', () => {
         
-            render(<Grid perPageCount={1} />);
+        render(<Grid perPageCount={1} />);
         
-        
-
-        screen.debug();        
+        const loading = screen.findByText('Loading');
+        expect(loading).toBeDefined();      
     });
 });
