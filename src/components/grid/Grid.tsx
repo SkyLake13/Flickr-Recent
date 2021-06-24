@@ -1,48 +1,36 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
+import { useIntersectionObserver } from './useIntersectionObserver';
 import { Card } from '../card/Card';
 import { getPhotos } from '../../integration/flickr-client';
 import { Photo } from '../../integration/interfaces';
-import { debouncedListener } from './scroll-event-listener';
 
 import styles from './Grid.module.scss';
 
-
-const SCROLL_EVENT = 'scroll';
-
 function Grid({ perPageCount }: { perPageCount: number }) {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [page, setPage] = useState<number>(1);
+    const [page, setPage] = useState<number>(0);
     const [photos, setPhotos] = useState<Photo[]>([]);
 
+    const bottom = useRef(null);
+    const atBottom = useIntersectionObserver(bottom, { threshold: 0 });
+
     useEffect(() => {
-        getPhotos(page, perPageCount).then((res) => {
-            setPhotos([...photos, ...res.photos.photo]);
-            setLoading(false);
-        });
-        // Remove Scroll event listener at component unmount
-        return document.removeEventListener(SCROLL_EVENT, scrollListenerCallback);
-    }, [page]);
+        if(atBottom) {
+            setPage(page+1);
 
-    // Callback when scroll position is at bottom
-    const atBottom = () => {
-        // Remove Scroll event listener at bottom
-        setLoading(true);
-        document.removeEventListener(SCROLL_EVENT, scrollListenerCallback);
-        setPage(page + 1);
-    }
-
-    const scrollListenerCallback = useCallback(() => debouncedListener(() => atBottom()), [page])
-
-    document.addEventListener(SCROLL_EVENT, scrollListenerCallback);
+            getPhotos(page, perPageCount).then((res) => {
+                setPhotos([...photos, ...res.photos.photo]);
+            });
+        }
+    }, [atBottom, perPageCount]);
 
     return (
-        <>
-            <div className={styles.grid}>
-                <CardList photos={photos} />
+            <div>
+                <div className={styles.grid}>
+                    <CardList photos={photos} />
+                </div>
+                <div ref={bottom} className={styles.loading}>Loading...</div>
             </div>
-            { loading && <div className={styles.loading}>Loading...</div> }
-        </>
     );
 }
 
