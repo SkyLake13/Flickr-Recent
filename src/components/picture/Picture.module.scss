@@ -4,63 +4,35 @@
     @return $width * 3 / 4;
 }
 
-
-@media (min-width: 310px) and (max-width: 420px) {
-    $width: 265;
-
+@mixin cardPicture($width) {
     .card_picture {
         img {
             width: $width * 1px;
             height: calculateHeight($width) * 1px;
-           
+
             border-radius: 5px;
             box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
         }
     }
+}
+
+
+@media (min-width: 310px) and (max-width: 420px) {
+    @include cardPicture(265);
 }
 
 // low res tablets
 @media (min-width: 421px) and (max-width: 768px) {
-    $width: 300;
-
-    .card_picture {
-        img {
-            width: $width * 1px;
-            height: calculateHeight($width) * 1px;
-
-            border-radius: 5px;
-            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
-        }
-    }
+    @include cardPicture(300);
 }
 
 // high res tablets & low res laptops
 @media (min-width: 769px) and (max-width: 1366px) {
-    $width: 340;
-
-    .card_picture {
-        img {
-            width: $width * 1px;
-            height: calculateHeight($width) * 1px;
-
-            border-radius: 5px;
-            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
-        }
-    }
+    @include cardPicture(340);
 }
 
 // high res tablets & high res laptops
 @media (min-width: 1367px) {
-    $width: 500;
-
-    .card_picture {
-        img {
-            width: $width * 1px;
-            height: calculateHeight($width) * 1px;
-
-            border-radius: 5px;
-            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
-        }
-    }
+    @include cardPicture(400);
 }
 

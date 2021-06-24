@@ -1,11 +1,52 @@
 @import '../../variables';
 
+$overlayColor: $favourite-overlay-color;
+$overlayBgColor: $favourite-overlay-background-color;
+
 @mixin photo-text {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-family: sans-serif;
+}
+
+@mixin responsiveOverlay($textFontSize, $lineBreakWidth, $buttonFontSize,
+                            $buttonBorderRadius) {
+    .card-info-container {
+        position: absolute;
+        top: 45px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: $overlayColor;
+        font-size: $textFontSize * 1px;;
+
+        .title {
+            @include photo-text;
+            font-weight: 900;
+        }
+        .line-break {
+            width: $lineBreakWidth * 1px;;
+            border: 0.5px solid $overlayColor;
+        }
+
+        .owner {
+            @include photo-text;
+            font-style: italic;
+        }
+
+        .favourite-btn {
+            border-radius: $buttonBorderRadius * 1px;
+            background: $overlayBgColor;
+            line-height: $buttonFontSize * 2px;
+            border: 1px solid $overlayColor;
+            margin-top: 10px;
+            cursor: pointer;
+            color: $overlayColor;
+            font-size: $buttonFontSize * 1px;
+        }
+    }
 }
 
 .card-outer-container {
@@ -15,7 +56,7 @@
     .card-overlay {      
         opacity: 0;
 
-        background: $favourite-overlay-background-color;
+        background: $overlayBgColor;
         position: absolute;
         top: 0;
         left: 0;
@@ -24,42 +65,31 @@
         border-radius: 5px;
 
         transition: background-color 200ms ease-in, opacity 200ms ease-in; 
-
-        .card-info-container {
-            position: absolute;
-            top: 45px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: $favourite-overlay-color;
-
-            .title {
-                @include photo-text;
-                font-weight: 900;
-            }
-            .line-break {
-                width: 65px;
-                border: 0.5px solid $favourite-overlay-color;
-            }
-
-            .owner {
-                @include photo-text;
-                font-style: italic;
-            }
-
-            .favourite-btn {
-                border-radius: 19px;
-                background: $favourite-overlay-background-color;
-                line-height: 30px;
-                border: 1px solid $favourite-overlay-color;
-                margin-top: 10px;
-                cursor: pointer;
-                color: $favourite-overlay-color;
-            }
-        }
     }
 }
 
 .card-outer-container:hover .card-overlay {
     opacity: 0.7;
 }
+
+
+// mobile devices
+@media (min-width: 310px) and (max-width: 420px) {
+    @include responsiveOverlay(18, 70, 14, 18);
+}
+
+// low res tablets
+@media (min-width: 421px) and (max-width: 768px) {
+    @include responsiveOverlay(20, 100, 17, 23);
+}
+
+// high res tablets & low res laptops
+@media (min-width: 769px) and (max-width: 1366px) {
+    @include responsiveOverlay(25, 150, 20, 28);
+}
+
+// high res tablets & high res laptops
+@media (min-width: 1367px) {
+    @include responsiveOverlay(25, 150, 20, 28);
+}
+
