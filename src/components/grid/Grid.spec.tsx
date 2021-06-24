@@ -1,5 +1,4 @@
 import { cleanup, render, screen } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
 import { RootObject } from '../../integration/interfaces';
 import { CardProp } from '../card/Card';
 import { Grid } from './Grid';

@@ -1,23 +1,25 @@
 import { render, RenderResult, cleanup  } from '@testing-library/react';
 import { useState } from 'react';
-import { getPhotoUrl } from '../../integration/flickr-client';
 
 import { Card, CardProp } from './Card';
 
-jest.mock('./useFavourite', () => {
+jest.mock('../../integration/favourite', () => {
+    let store: {serverId: string, photoId: string}[] = [];
     return {
         __esModule: true,
-        useFavourite: () => {
-            const [fav, setFav] = useState<boolean>(false);
-
-            const toggleFavourite = () => {
-                setFav(!fav);
-            };
-
-            return [fav, toggleFavourite];
+        isFavourite: (serverId: string, photoId: string): boolean => {
+            return store.some((el) => el.serverId === serverId && el.photoId === photoId);
+        },
+        saveFavourite: (serverId: string, photoId: string, fav: boolean): void => {
+            if (fav) {
+                store = [...store, { serverId, photoId }];
+            } else {
+                const index = store.findIndex((el) => el.serverId === serverId && el.photoId === photoId)
+                store.splice(index, 1);
+            }
         }
     }
-});
+})
 
 describe('Card', () => {
     let fixture: RenderResult;
@@ -34,9 +36,6 @@ describe('Card', () => {
             title: 'title',
             owner: 'owner'
         }
-
-        const expected_imageSrcUrl = getPhotoUrl(props.serverId, 
-            props.photoId, props.secret, 'z');
 
         fixture = render(<Card serverId={props.serverId} 
             photoId={props.photoId} 
@@ -55,12 +54,7 @@ describe('Card', () => {
 
         const fav_button = fixture.container.querySelector('.favourite-btn');
         expect(fav_button).toBeDefined();
-        expect(fav_button?.textContent).toEqual('Favourite');
-
-        const image = fixture.container.querySelector('img');
-        expect(image).toBeDefined();
-        expect(image?.src).toEqual(expected_imageSrcUrl);
-        expect(image?.alt).toEqual(props.title);        
+        expect(fav_button?.textContent).toEqual('Favourite');      
     });
 
     it('should make a card favourite', () => {
@@ -92,8 +86,8 @@ describe('Card', () => {
 
     it('should make a card unfavourite', () => {
         const props: CardProp = {
-            serverId: 'serverId', 
-            photoId: 'photoId', 
+            serverId: 'serverId-1', 
+            photoId: 'photoId-1', 
             secret: 'secret',
             title: 'title',
             owner: 'owner'
