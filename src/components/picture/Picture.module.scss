@@ -1,33 +1,8 @@
-@media (min-width: 320px) and (max-width: 480px) {
-    .card_picture {
-        img {
-            height: 200px;
-            width: 250px;
-            border-radius: 5px;
-            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
-        }
+.card_picture {
+    img {
+        height: 230px;
+        width: 300px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
     }
 }
-
-@media (min-width: 481px) and (max-width: 1024px) {
-    .card_picture {
-        img {
-            height: 230px;
-            width: 300px;
-            border-radius: 5px;
-            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
-        }
-    }
-}
-
-@media (min-width: 1025px) {
-    .card_picture {
-        img {
-            height: 280px;
-            width: 400px;
-            border-radius: 5px;
-            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
-        }
-    }
-}
-
