@@ -25,11 +25,16 @@ function Grid({ perPageCount }: { perPageCount: number }) {
     }, [atBottom, perPageCount]);
 
     return (
-            <div>
-                <div className={styles.grid}>
-                    <CardList photos={photos} />
+            <div className={styles.outer_grid}>
+                <div className={styles.side}></div>
+                <div>
+                    <div className={styles.grid}>
+                        <CardList photos={photos} />
+                    </div>
+                    <div ref={bottom} className={styles.loading}>Loading...</div>
                 </div>
-                <div ref={bottom} className={styles.loading}>Loading...</div>
+                <div className={styles.side}></div>
+                
             </div>
     );
 }
