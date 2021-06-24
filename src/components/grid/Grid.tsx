@@ -8,7 +8,7 @@ import { Photo } from '../../integration/interfaces';
 import styles from './Grid.module.scss';
 
 function Grid({ perPageCount }: { perPageCount: number }) {
-    const [page, setPage] = useState<number>(0);
+    const page = useRef<number>(0);
     const [photos, setPhotos] = useState<Photo[]>([]);
 
     const bottom = useRef(null);
@@ -16,10 +16,10 @@ function Grid({ perPageCount }: { perPageCount: number }) {
 
     useEffect(() => {
         if(atBottom) {
-            setPage(page+1);
+            page.current = page.current + 1;
 
-            getPhotos(page, perPageCount).then((res) => {
-                setPhotos([...photos, ...res.photos.photo]);
+            getPhotos(page.current, perPageCount).then((res) => {
+                setPhotos((photos) => [...photos, ...res.photos.photo]);
             });
         }
     }, [atBottom, perPageCount]);
