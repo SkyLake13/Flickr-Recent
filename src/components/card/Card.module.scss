@@ -13,7 +13,7 @@ $overlayBgColor: $favourite-overlay-background-color;
 
 @mixin responsiveOverlay($textFontSize, $lineBreakWidth, $buttonFontSize,
                             $buttonBorderRadius) {
-    .card-info-container {
+    .card_info_container {
         position: absolute;
         top: 45px;
         left: 0;
@@ -26,7 +26,7 @@ $overlayBgColor: $favourite-overlay-background-color;
             @include photo-text;
             font-weight: 900;
         }
-        .line-break {
+        .line_break {
             width: $lineBreakWidth * 1px;;
             border: 0.5px solid $overlayColor;
         }
@@ -36,7 +36,7 @@ $overlayBgColor: $favourite-overlay-background-color;
             font-style: italic;
         }
 
-        .favourite-btn {
+        .favourite_btn {
             border-radius: $buttonBorderRadius * 1px;
             background: $overlayBgColor;
             line-height: $buttonFontSize * 2px;
@@ -49,11 +49,11 @@ $overlayBgColor: $favourite-overlay-background-color;
     }
 }
 
-.card-outer-container {
+.card_outer_container {
     margin: 15px;
     position: relative;
 
-    .card-overlay {      
+    .card_overlay {      
         opacity: 0;
 
         background: $overlayBgColor;
@@ -68,7 +68,7 @@ $overlayBgColor: $favourite-overlay-background-color;
     }
 }
 
-.card-outer-container:hover .card-overlay {
+.card_outer_container:hover .card_overlay {
     opacity: 0.7;
 }
 
