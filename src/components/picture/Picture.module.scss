@@ -1,8 +1,66 @@
-.card_picture {
-    img {
-        height: 250px;
-        width: 340px;
-        border-radius: 5px;
-        box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
+// mobile devices
+
+@function calculateHeight($width) {
+    @return $width * 3 / 4;
+}
+
+
+@media (min-width: 310px) and (max-width: 420px) {
+    $width: 265;
+
+    .card_picture {
+        img {
+            width: $width * 1px;
+            height: calculateHeight($width) * 1px;
+           
+            border-radius: 5px;
+            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
+        }
     }
 }
+
+// low res tablets
+@media (min-width: 421px) and (max-width: 768px) {
+    $width: 300;
+
+    .card_picture {
+        img {
+            width: $width * 1px;
+            height: calculateHeight($width) * 1px;
+
+            border-radius: 5px;
+            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+// high res tablets & low res laptops
+@media (min-width: 769px) and (max-width: 1366px) {
+    $width: 340;
+
+    .card_picture {
+        img {
+            width: $width * 1px;
+            height: calculateHeight($width) * 1px;
+
+            border-radius: 5px;
+            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+// high res tablets & high res laptops
+@media (min-width: 1367px) {
+    $width: 500;
+
+    .card_picture {
+        img {
+            width: $width * 1px;
+            height: calculateHeight($width) * 1px;
+
+            border-radius: 5px;
+            box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
