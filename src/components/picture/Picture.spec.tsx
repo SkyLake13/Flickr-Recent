@@ -28,6 +28,6 @@ describe('Picture', () => {
 
         const sources = fixture.container.querySelectorAll('source');
         expect(sources).toBeDefined();
-        expect(sources).toHaveLength(3);
+        expect(sources).toHaveLength(4);
     });
 });
