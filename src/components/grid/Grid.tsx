@@ -26,15 +26,12 @@ function Grid({ perPageCount }: { perPageCount: number }) {
 
     return (
             <div className={styles.outer_grid}>
-                <div className={styles.side}></div>
-                <div>
+                <div className={styles.grid_margin}>
                     <div className={styles.grid}>
                         <CardList photos={photos} />
                     </div>
                     <div ref={bottom} className={styles.loading}>Loading...</div>
                 </div>
-                <div className={styles.side}></div>
-                
             </div>
     );
 }

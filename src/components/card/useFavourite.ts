@@ -11,7 +11,7 @@ function useFavourite(serverId: string, photoId: string): [ boolean, () => void 
 
     const toggleFavourite = () => {
         saveFavourite(serverId, photoId, !fav);
-        setFav(!fav);
+        setFav((prevState) => !prevState);
     };
 
     return [fav, toggleFavourite];
