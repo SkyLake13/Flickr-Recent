@@ -1,7 +1,5 @@
 import { RootObject } from './interfaces';
 
-const FLICKR_KEY = '8808028abf5ea034d0492b2c5d5d9151';
-
 const photosMetadataUrl = (api_key: string, countPerPage: number, page: number): string => {
     const url = `https://www.flickr.com/services/rest/?method=flickr.photos.getRecent`
                     + `&api_key=${api_key}`
@@ -18,7 +16,13 @@ const getPhotoUrl = (serverId: string, photoId: string, secret: string, size: st
 }
 
 const getPhotos = (page: number, count: number): Promise<RootObject> => {
-    const photosUrl = photosMetadataUrl(FLICKR_KEY, count, page);
+    console.log(process.env);
+    
+    const api_key = process.env.REACT_APP_FLICKR_KEY;
+    if(!api_key) {
+        throw Error('api key not found');
+    }
+    const photosUrl = photosMetadataUrl(api_key, count, page);
 
     return fetch(photosUrl)
         .then((response) => response.json() as Promise<RootObject>);
