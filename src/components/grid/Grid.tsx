@@ -6,6 +6,7 @@ import { getPhotos } from '../../integration/flickr-client';
 import { Photo } from '../../integration/interfaces';
 
 import styles from './Grid.module.scss';
+import { isFavourite, saveFavourite } from '../../integration/favourite';
 
 function Grid({ perPageCount }: { perPageCount: number }) {
     const page = useRef<number>(0);
@@ -24,10 +25,20 @@ function Grid({ perPageCount }: { perPageCount: number }) {
         }
     }, [atBottom, perPageCount]);
 
+    const toggleFavourite = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const target = event.target as any;
+        const serverId = target.dataset.serverId;
+        const photoId = target.dataset.photoId;
+
+        const favourite = isFavourite(serverId, photoId);
+        saveFavourite(serverId, photoId, !favourite);
+        target.textContent = !favourite ? 'Unfavourite' : 'Favourite';
+    }
+
     return (
             <div className={styles.outer_grid}>
                 <div className={styles.grid_margin}>
-                    <div className={styles.grid}>
+                    <div className={styles.grid} onClick={ e => toggleFavourite(e) }>
                         <CardList photos={photos} />
                     </div>
                     <div ref={bottom} className={styles.loading}>Loading...</div>

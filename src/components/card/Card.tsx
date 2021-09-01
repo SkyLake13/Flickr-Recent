@@ -11,11 +11,7 @@ export interface CardProp {
 }
 
 function Card({ serverId, photoId, secret, title, owner }: CardProp) {
-    const [favourite, toggleFavourite] = useFavourite(serverId, photoId);
-
-    const makeFavourite = () => {
-        toggleFavourite();
-    };
+    const [favourite] = useFavourite(serverId, photoId);
 
     const overlay = (
         <div className={styles.card_overlay}>
@@ -23,8 +19,7 @@ function Card({ serverId, photoId, secret, title, owner }: CardProp) {
                 <div className={styles.title}>{title}</div>
                 <hr className={styles.line_break}/>
                 <div className={styles.owner}>{owner}</div>
-                <button className={styles.favourite_btn}
-                    onClick={() => makeFavourite()}>
+                <button className={styles.favourite_btn} data-server-id={serverId} data-photo-id={photoId}>
                     { favourite ? 'Unfavourite' : 'Favourite' }
                 </button>
             </div>
